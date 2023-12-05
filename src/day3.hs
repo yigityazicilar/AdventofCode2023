@@ -1,7 +1,6 @@
-import AoC (getFileContents)
+import AoC (getFileContents, enumerate, insertWithList)
 import Data.List (intersect)
-import qualified Data.Map as Map
-import Data.Map (Map)
+import Data.Map (Map, elems, fromList)
 import qualified Data.Bifunctor
 
 main :: IO()
@@ -13,12 +12,9 @@ main = do fileLines <- getFileContents "../resources/Day3/day3.txt"
           putStr "Solution to Day 3 Part 1 is "
           print $ getParts nums symbols
           putStr "Solution to Day 3 Part 2 is "
-          print $ sum [product x | x <- Map.elems (getGears nums stars), length x == 2]
+          print $ sum [product x | x <- elems (getGears nums stars), length x == 2]
 
 ------- COMMON -------
-
-enumerate :: [b] -> [(Int, b)]
-enumerate = zip [0..]
 
 getNums :: (Int, String) -> Int -> [(String, (Int, Int))]
 getNums (_, []) _ = []
@@ -50,14 +46,10 @@ getParts ((numStr, coords):xs) symbols
 -------------P2--------------
 
 getGears :: [(String, (Int, Int))] -> [(Int, Int)] -> Map (Int, Int) [Int]
-getGears [] stars = Map.fromList [(x, []) | x <- stars]
+getGears [] stars = fromList [(x, []) | x <- stars]
 getGears ((numStr, coords):xs) stars
-                                    | not (null matchedIndices) = insertWithList numStr recursionRes matchedIndices
+                                    | not (null matchedIndices) = insertWithList (++) matchedIndices (read numStr) recursionRes 
                                     | otherwise = recursionRes
                                       where possibleVals = [(x, y) | x <- [-1..1], y <- [-1..length numStr]]
                                             matchedIndices = map (addCoords coords) possibleVals `intersect` stars
                                             recursionRes = getGears xs stars
-
-insertWithList :: String -> Map (Int, Int) [Int] -> [(Int, Int)] -> Map (Int, Int) [Int]
-insertWithList _ m [] = m
-insertWithList numStr m (x:xs) = Map.insertWith (++) x [read numStr] (insertWithList numStr m xs)
