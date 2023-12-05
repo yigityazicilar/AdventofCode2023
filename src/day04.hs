@@ -3,7 +3,7 @@ import Data.Char (isSpace)
 import Data.List (intersect)
 
 main :: IO ()
-main = do fileLines <- getFileContents "../resources/Day4/day4.txt"
+main = do fileLines <- getFileContents "../resources/Day04/input.txt"
           let drawnNumbers = map (map read . splitString (==' ') . last . splitString (=='|')) fileLines :: [[Int]]
           let cardNumbers = map (map read . splitString (==' ') . last . splitString (==':') . head . splitString (=='|')) fileLines :: [[Int]]
           let matchCount = map length $ zipWith intersect cardNumbers drawnNumbers

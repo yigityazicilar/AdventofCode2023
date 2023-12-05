@@ -4,7 +4,7 @@ import Data.Map (Map, elems)
 import AoC (getFileContents, splitString)
 
 main :: IO ()
-main = do fileLines <- getFileContents "../resources/Day2/day2.txt"
+main = do fileLines <- getFileContents "../resources/Day02/input.txt"
           putStr "Solution to Day 2 Part 1 is "
           print $ parseFileP1 fileLines
           putStr "Solution to Day 2 Part 2 is "

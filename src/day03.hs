@@ -4,7 +4,7 @@ import Data.Map (Map, elems, fromList)
 import qualified Data.Bifunctor
 
 main :: IO()
-main = do fileLines <- getFileContents "../resources/Day3/day3.txt"
+main = do fileLines <- getFileContents "../resources/Day03/input.txt"
           let lineLen = length $ head fileLines
           let nums = concatMap (`getNums` lineLen) (enumerate fileLines)
           let symbols = getSymbolCoords (getSymbolIndices (\x -> x `notElem` (['0'..'9'] ++ ['.']))) fileLines

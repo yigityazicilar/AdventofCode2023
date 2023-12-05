@@ -4,7 +4,7 @@ import Data.Map (filterWithKey, Map, elems)
 import Data.List (isPrefixOf)
 import AoC (getFileContents)
 
-main = do fileLines <- getFileContents "../resources/Day1/day1.txt"
+main = do fileLines <- getFileContents "../resources/Day01/input.txt"
           putStr "Solution to Day 1 Part 1 is "
           print $ parseFile fileLines parseLineP1
           putStr "Solution to Day 1 Part 2 is "
